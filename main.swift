@@ -11,7 +11,7 @@ func startGame(){
     print("The current question is \(i+1)")
 
     userr.getScore
-    print("\(q.quesText) -->")
+    print("            \(q.quesText)")
     print("  \(q.options[0])                     \(q.options[1])")
     print("  \(q.options[2])                     \(q.options[3])")
     print("Enter the correct option")
@@ -53,7 +53,7 @@ for j in 0...2{
     print("\(q.quesText) -->")
     print("  \(q.options[0])                     \(q.options[1])")
     print("  \(q.options[2])                     \(q.options[3])")
-    print("Enter the correct option")
+    print("Enter the correct option  or  you can walk out with a cash amount of \(userr.getScore)")
     let uans:String?=readLine()!
     
     if let uans=uans{

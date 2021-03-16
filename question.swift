@@ -1,6 +1,6 @@
 struct question{
     let quesText:String
-    var options:[String]   //string type array
+    var options:[String]   
     let difficultyRating:String
     let correctOption:String
 }
