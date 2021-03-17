@@ -4,24 +4,65 @@ var qBank:pool=pool()
 var userr:user=user(score:0)
 var i=0
 var h1:helpline=helpline(isUsed:false)
+var h2:helpline2=helpline2(isUsed:false)
+
 
 func useHelpline(q:inout question){
-  print("You can also use a helpline; enter h1 to use 50/50 or pres h2 to use ASKAUDIENCE to use else enter any other key")
-  var hans:String?=readLine()!
-  var uw_hans=hans ?? "NIL"
-  if(uw_hans=="h1"){
-    h1.remove50(ques:&q)
-      print("The updated question is \(i+1)")
-      userr.getScore
-      print("    \(q.quesText)   ")
-      print("\(q.labeloptions[0])-  \(q.options[0])                    \(q.labeloptions[1])- \(q.options[1])")
-  }else if(uw_hans=="h2"){
-    
+  if (!h1.isUsed && !h2.isUsed){
+    print("You can also use a helpline; enter h1 to use 50/50 or pres h2 to use ASKAUDIENCE to use else enter any other key")
+    var hans:String?=readLine()!
+    var uw_hans=hans ?? "NIL"
+    if(uw_hans=="h1"){
+      useHelpline1(q:&q)
+    }else if(uw_hans=="h2"){
+      useHelpline2(q:&q) 
+    }else{
+      return
+    }
+  }
+  else if (!h1.isUsed) {
+    print("You can only use a helpline- 50/50 , to use 50/50 press h1 else enter any other key")
+    var hans:String?=readLine()!
+    var uw_hans=hans ?? "NIL"
+    if(uw_hans=="h1"){
+      useHelpline1(q:&q)
+    }else{
+      return
+    }
+  }
+  else if (!h2.isUsed) {
+    print("You can only use a helpline- askaudience , to use askaudience press h2 else enter any other key")
+    var hans:String?=readLine()!
+    var uw_hans=hans ?? "NIL"
+    if(uw_hans=="h2"){
+      useHelpline2(q:&q)
+    }else{
+      return
+    }
   }
   else{
-    return
+    print("You do not have any helpline left")
   }
+}
+
+func useHelpline1(q:inout question){
+  h1.remove50(ques:&q)
+  print("The updated question is \(i+1)")
+  userr.getScore
+  print("    \(q.quesText)   ")
+  print("\(q.labeloptions[0])-  \(q.options[0])                    \(q.labeloptions[1])- \(q.options[1])")
   h1.isUsed=true
+
+}
+
+func useHelpline2(q:inout question){
+  var result:[Int]=h2.getVotes
+  print("The audience voted as - ")
+  print("    \(q.quesText)   ")
+  print("\(q.labeloptions[0])-  \(q.options[0]) -  \(result[0]) %                  \(q.labeloptions[1])- \(q.options[1]) -  \(result[1]) %")  
+  print("\(q.labeloptions[2])-  \(q.options[2]) -  \(result[2]) %                   \(q.labeloptions[3])- \(q.options[3]) -  \(result[3]) %")
+  h2.isUsed=true
+
 }
 
 func playRound12(ques:inout[question])->Bool{
@@ -34,11 +75,8 @@ func playRound12(ques:inout[question])->Bool{
       print("    \(q.quesText)")
       print("A-  \(q.options[0])                    B- \(q.options[1])")
       print("C-  \(q.options[2])                    D- \(q.options[3])")
-      if !h1.isUsed {
-        useHelpline(q:&q)
-      }else{
-        print("You dont have helpline left")
-      }
+    
+      useHelpline(q:&q)
       print("Enter the correct option")
       var uans:String?=readLine()!
     // if let uanss=uans{
@@ -90,11 +128,7 @@ func playRound3(){
     print("\(q.quesText) -->")
     print("A-  \(q.options[0])                    B- \(q.options[1])")
     print("C-  \(q.options[2])                    D- \(q.options[3])")
-    if !h1.isUsed {
-        useHelpline(q:&q)
-      }else{
-        print("You dont have helpline left")
-      }
+    useHelpline(q:&q)
     print("Enter the correct option )")
     var uans:String?=readLine()!
     

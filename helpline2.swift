@@ -1,27 +1,24 @@
-struct helpline2{
+class helpline2{
     var isUsed:Bool
     var votes:[Int]=[0,0,0,0]
-    func askaudi(ques:inout question){
-        for i in 1...100{
-            var temp=Int.random(in: 0...3)
-            switch temp {
-            case 0:
-                votes[0]+=1
-            case 1:
-                votes[1]+=1
-            case 2:
-                votes[2]+=1
-            case 3:
-                votes[3]+=1
-            default:
+    init(isUsed:Bool){
+        self.isUsed=isUsed
+    }
+    var getVotes:[Int]{
+        get{
+            for i in 1...100{
+                var temp=Int.random(in: 0...3)
+                if (temp==0) {
+                    votes[0]=votes[0]+1
+                }else if (temp==1){
+                    votes[1]=votes[1]+1
+                }else if (temp==2){
+                    votes[2]=votes[2]+1
+                }else if (temp==3){
+                    votes[3]=votes[3]+1
+                }
             }
+            return votes
         }
-        var widx:Int=0
-        for i in 1..votes.count{
-            if(votes[widx]<votes[i]){
-                widx=i
-            }
-        }
-        return widx
     }
 }

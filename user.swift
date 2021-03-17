@@ -4,7 +4,6 @@ class user{
     var getScore:Int{
       get{
           for q in quesAnswered{
-    // print("The current question is \(i)")
     switch i {
       case 3:
         if q.reply==q.question.correctOption {
