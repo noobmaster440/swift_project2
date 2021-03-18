@@ -1,4 +1,4 @@
-print("--------------------------Who Wants to be a Millionare--------------------------")
+print("WELCOME TO - WHO WANTS TO BE A MILIONAIRE---------------------------")
 
 var qBank:pool=pool()
 var userr:user=user(score:0)
@@ -9,7 +9,10 @@ var h2:helpline2=helpline2(isUsed:false)
 
 func useHelpline(q:inout question){
   if (!h1.isUsed && !h2.isUsed){
-    print("You can also use a helpline; enter h1 to use 50/50 or pres h2 to use ASKAUDIENCE to use else enter any other key")
+    print("YOU HAVE HINTS/HELPLINE AVAILABLE")
+    print("PRESS h1 FOR HINT-50/50")
+    print("PRESS h2 FOR ASK_AUDIENCE")
+    print("PRESS ANY OTHER KEY TO CONTINUE WITHOUT HELPLINE , YOU CAN USE THEM LATER")
     var hans:String?=readLine()!
     var uw_hans=hans ?? "NIL"
     if(uw_hans=="h1"){
@@ -21,7 +24,8 @@ func useHelpline(q:inout question){
     }
   }
   else if (!h1.isUsed) {
-    print("You can only use a helpline- 50/50 , to use 50/50 press h1 else enter any other key")
+    print("YOU HAVE ONE HINT/HELPLINE AVAILABLE")
+    print("PRESS h1 FOR HINT-50/50")
     var hans:String?=readLine()!
     var uw_hans=hans ?? "NIL"
     if(uw_hans=="h1"){
@@ -31,7 +35,8 @@ func useHelpline(q:inout question){
     }
   }
   else if (!h2.isUsed) {
-    print("You can only use a helpline- askaudience , to use askaudience press h2 else enter any other key")
+    print("YOU HAVE ONE HINT/HELPLINE AVAILABLE")
+    print("PRESS h2 FOR ASK_AUDIENCE")
     var hans:String?=readLine()!
     var uw_hans=hans ?? "NIL"
     if(uw_hans=="h2"){
@@ -41,68 +46,69 @@ func useHelpline(q:inout question){
     }
   }
   else{
-    print("You do not have any helpline left")
+    print("SORRY !!! YOU DO NOT HAVE ANY HELPLINE LEFT")
   }
 }
 
 func useHelpline1(q:inout question){
   h1.remove50(ques:&q)
-  print("The updated question is \(i+1)")
+  print("THE UPDATED QUESTION IS \(i+1)")
   userr.getScore
-  print("    \(q.quesText)   ")
-  print("\(q.labeloptions[0])-  \(q.options[0])                    \(q.labeloptions[1])- \(q.options[1])")
+  print("✦ \(q.quesText)   ")
+  print("\(q.labeloptions[0])-  \(q.options[0])                    \n\(q.labeloptions[1])- \(q.options[1])")
   h1.isUsed=true
 
 }
 
 func useHelpline2(q:inout question){
   var result:[Int]=h2.getVotes
-  print("The audience voted as - ")
-  print("    \(q.quesText)   ")
-  print("\(q.labeloptions[0])-  \(q.options[0]) -  \(result[0]) %                  \(q.labeloptions[1])- \(q.options[1]) -  \(result[1]) %")  
-  print("\(q.labeloptions[2])-  \(q.options[2]) -  \(result[2]) %                   \(q.labeloptions[3])- \(q.options[3]) -  \(result[3]) %")
+  print("AUDIENCE VOTED AS FOLLOWS- ")
+  print("✦ \(q.quesText)   ")
+  print("\(q.labeloptions[0])-  \(q.options[0]) -  \(result[0]) %                  \n\(q.labeloptions[1])- \(q.options[1]) -  \(result[1]) %")  
+  print("\(q.labeloptions[2])-  \(q.options[2]) -  \(result[2]) %                   \n\(q.labeloptions[3])- \(q.options[3]) -  \(result[3]) %")
   h2.isUsed=true
 
 }
 
-func playRound12(ques:inout[question])->Bool{
+func playRound12(ques:inout[question],round:Int)->Bool{
   for j in 0...2{
       var k=Int.random(in: 0..<ques.count)
       var q=ques[k]
       ques.remove(at:k)
-      print("The current question is \(i+1)")
+      print("NOTE- THE CURRENT QUESTION IS \(i+1)")
       userr.getScore
-      print("    \(q.quesText)")
-      print("A-  \(q.options[0])                    B- \(q.options[1])")
-      print("C-  \(q.options[2])                    D- \(q.options[3])")
+      print("✦ \(q.quesText)   ")
+      print("a-  \(q.options[0])                    b- \(q.options[1])")
+      print("c-  \(q.options[2])                    d- \(q.options[3])")
     
       useHelpline(q:&q)
-      print("Enter the correct option")
+      print("KINDLY ENTER THE CORRECT OPTION")
       var uans:String?=readLine()!
-    // if let uanss=uans{
       var uw_uans=uans ?? "NIL"
-      print("Do you want to lock this answer - \(uw_uans) , enter y to confirm")
+      print("HEY YOU SURE YOU WANT TO LOCK THIS ANSWER \(uw_uans) , ENTER y TO CONFIRM")
       var tans:String?=readLine()!
-      // if let tanss=tans{ 
       var uw_tans=tans ?? "NIL"
       while(uw_tans != "y"){
-          print("Enter the correct option")
+          print("KINDLY ENTER THE CORRECT OPTION")
           uans=readLine()!
           uw_uans=uans ?? "NIL"
-          print("Do you want to lock this answer - \(uw_uans) , enter y to confirm")
+          print("HEY YOU SURE YOU WANT TO LOCK THIS ANSWER \(uw_uans) , ENTER y TO CONFIRM")
           tans=readLine()!
           uw_tans=tans ?? "NIL"
       }
       if(uans != q.correctOption){
-        print("You lost the game and your total amount of money won \(userr.getScore)")
+        print("WHOAAA YOU ENTERED THE WRONG ANSWER, THE CORRECT ANSWER WAS  \(q.correctOption)")
+        print("YOU LOST THE GAME BUT NO WORRIES , YOU WON $$$ \(userr.getScore)")
         return false
       }
+      print("CONGRATS THAT WAS THE CORRECT ANSWER")
+      
       userr.quesAnswered.append(answer(question:q,reply:uw_uans))
       i+=1
       if j==2 {
-        print("You have reached the end of round 1 ")
-        print("Now you can walk away with \(userr.getScore) or enter and play round 2")
-        print("Enter y to continue or press any key to exit the game")
+        print("CONGRATS, YOU HAVE REACHED THE END OF ROUND - \(round) ")
+        print("NOW YOU CAN WALK AWAY WITH $$$ \(userr.getScore) OR ENTER AND PLAY THE NEXT ROUND WHICH IS \(round+1)")
+        print("ENTER y TO CONTINUE OR PRESS ANY OTHER KEY TO EXIT")
         let choice:String?=readLine()!
         if let choice=choice{
           if(choice=="y"){
@@ -124,32 +130,32 @@ func playRound3(){
     var q=qBank.hard[k]
     qBank.hard.remove(at:k)
     userr.getScore
-    print("The current question is \(i+1)")
-    print("\(q.quesText) -->")
-    print("A-  \(q.options[0])                    B- \(q.options[1])")
-    print("C-  \(q.options[2])                    D- \(q.options[3])")
+    print("NOTE- THE CURRENT QUESTION IS \(i+1)")
+    print("✦ \(q.quesText)   ")
+    print("a-  \(q.options[0])                    b- \(q.options[1])")
+    print("c-  \(q.options[2])                    d- \(q.options[3])")
     useHelpline(q:&q)
-    print("Enter the correct option )")
+    print("KINDLY ENTER THE CORRECT OPTION")
     var uans:String?=readLine()!
     
-    // if let uans=uans{
       var uw_uans=uans ?? "NIL"
-      print("Do you want to lock this answer - \(uw_uans) , enter y to confirm")
+      print("HEY YOU SURE YOU WANT TO LOCK THIS ANSWER \(uw_uans) , ENTER y TO CONFIRM")
       var tans:String?=readLine()!
-      // if let tanss=tans{ 
       var uw_tans=tans ?? "NIL"
       while(uw_tans != "y"){
-          print("Enter the correct option")
+          print("KINDLY ENTER THE CORRECT OPTION")
           uans=readLine()!
           uw_uans=uans ?? "NIL"
-          print("Do you want to lock this answer - \(uw_uans) , enter y to confirm")
+          print("HEY YOU SURE YOU WANT TO LOCK THIS ANSWER \(uw_uans) , ENTER y TO CONFIRM")
           tans=readLine()!
           uw_tans=tans ?? "NIL"
       }
          if(uans != q.correctOption){
-            print("You lost the game and your total amount of money won \(userr.getScore)")
+            print("WHOAAA YOU ENTERED THE WRONG ANSWER, THE CORRECT ANSWER WAS  \(q.correctOption)")
+            print("YOU LOST THE GAME BUT NO WORRIES , YOU WON $$$ \(userr.getScore)")
             return;
         }
+      print("CONGRATS THAT WAS THE CORRECT ANSWER")
       userr.quesAnswered.append(answer(question:q,reply:uw_uans))
       
     // }
@@ -159,9 +165,8 @@ func playRound3(){
       return
       
     }else{
-      print("You have crossed the \(j+1) question of final round ")
-      print("Now you can walk away with \(userr.getScore) or enter and play next question of final round")
-      print("Enter y to continue or press any key to exit the game")
+      print("NOW YOU CAN WALK AWAY WITH $$$ \(userr.getScore) OR CONTINUE AND PLAY THE NEXT QUESTION)")
+      print("ENTER y TO CONTINUE OR PRESS ANY OTHER KEY TO EXIT")
       let choice:String?=readLine()!
       if let choice=choice{
         if(choice=="y"){
@@ -179,9 +184,9 @@ func playRound3(){
 
 
 func startGame(){
-  var isContinued=playRound12(ques:&qBank.easy)
+  var isContinued=playRound12(ques:&qBank.easy,round:1)
   if(isContinued){
-    isContinued=playRound12(ques:&qBank.medium)
+    isContinued=playRound12(ques:&qBank.medium,round:2)
     if isContinued {
       playRound3()
     }
